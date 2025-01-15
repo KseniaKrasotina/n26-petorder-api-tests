@@ -13,6 +13,8 @@ public class Pet {
     public ArrayList<String> photoUrls;
     public OrderStatus status;
 
+    public Pet() {}
+
     public Pet(Integer id, String name, Category category, ArrayList<Tag> tags, ArrayList<String> photoUrls, OrderStatus status) {
         this.id = id;
         this.name = name;

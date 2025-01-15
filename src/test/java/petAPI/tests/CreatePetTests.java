@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+
 
 @DisplayName("Tests for pet creation")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -53,12 +55,9 @@ public class CreatePetTests
             .post(EndPoints.pet)
         .then()
             .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("pet-schema.json"))
                 .extract().as(Pet.class);
 
-//        assertEquals(pet.id, response.id);
-//        assertEquals(pet.name, response.name);
-//        assertEquals(pet.category.id, response.category.id);
-//        assertEquals(pet.tags.size(), response.tags.size());
         assertEquals(pet.toJson(), response.toJson());
     }
 }
