@@ -43,9 +43,9 @@ jobs:
 
       - name: Run Test
         run: ./run_tests.sh
-        continue-on-error: true
 
       - name: Install Allure CommandLine
+        if: always()
         run: |
           curl -o allure-2.22.1.tgz -OLs https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.22.1/allure-commandline-2.22.1.tgz
           sudo tar -zxvf allure-2.22.1.tgz -C /opt/
@@ -70,6 +70,7 @@ jobs:
           force_orphan: true
 
       - name: Get Allure Report URL
+        if: always()
         run: |
           echo "ALLURE_REPORT_URL=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
 
