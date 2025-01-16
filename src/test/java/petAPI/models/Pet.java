@@ -27,6 +27,10 @@ public class Pet {
     public Pet() {
     }
 
+    public Pet(String name) {
+        this.name = name;
+    }
+
     public String toJson() {
         Gson gson = new GsonBuilder().create();
         return gson.toJson(this);
