@@ -1,0 +1,17 @@
+{
+  "id": null,
+  "category": {
+    "name": "Dogs"
+  },
+  "name": "My name is Null ID",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "status": "available"
+}

@@ -1,0 +1,17 @@
+{
+  "id": -1,
+  "category": {
+    "name": "Dogs"
+  },
+  "name": "My name is Negative ID",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "status": "pending"
+}

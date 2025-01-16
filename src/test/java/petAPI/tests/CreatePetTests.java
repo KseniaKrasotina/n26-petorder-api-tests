@@ -13,6 +13,7 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import petAPI.models.Category;
@@ -57,7 +58,7 @@ public class CreatePetTests {
                         }},
                         OrderStatus.sold),
                 new Pet(2,
-                        null,
+                        "Meow",
                         new Category(1, "null pet category"),
                         new ArrayList<>() {{
                             add(new Tag(1, "black"));
@@ -80,7 +81,7 @@ public class CreatePetTests {
                             add("http://photo_horse2.com");
                         }},
                         OrderStatus.pending),
-                new Pet(2,
+                new Pet(4,
                         "",
                         new Category(1, "noname pet category"),
                         new ArrayList<>() {{
@@ -122,8 +123,8 @@ public class CreatePetTests {
                         }},
                         OrderStatus.pending),
                 new Pet(-1,
-                        "Negative ID name",
-                        new Category(1, "negative id category"),
+                        "Negative ID",
+                        new Category(1, "negative id"),
                         new ArrayList<>() {{
                             add(new Tag(1, "blue"));
                             add(new Tag(2, "hungry"));
@@ -152,9 +153,16 @@ public class CreatePetTests {
         assertEquals(pet.toJson(), response.toJson());
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"testData/valid-pet-all-fields.json"})
-    public void postPet_validPet_valid200(String fileName) throws IOException {
+    @DisplayName("Invalid Pet Data Tests")
+    @ParameterizedTest(name = "{index}. {displayName}. {1}")
+    @CsvSource({
+            "testData/post_pet_invalid_nulliD.json, Pet with null ID",
+            "testData/post_pet_invalid_noID.json, Pet with missing ID",
+            "testData/post_pet_invalid_status.json, Pet with invalid status",
+            "testData/post_pet_invalid_idType.json, Pet with incorrect ID type",
+            "testData/post_pet_invalid_noRequiredName.json, Pet with missing required name"
+    })
+    public void postPet_invalidPet_400(String fileName, String testDescription) throws IOException {
         var requestBody = getJsonFromFile(fileName);
 
             Response response = given()
@@ -163,7 +171,7 @@ public class CreatePetTests {
                     .when()
                     .post(EndPoints.PET)
                     .then()
-                    .statusCode(200)
+                    .statusCode(400)
                     .contentType(ContentType.JSON)
                     .extract().response();
 
