@@ -57,7 +57,15 @@ jobs:
         if: always()
         with:
           allure_results: target/allure-results
+          allure_report: allure-report
           allure_history: allure-history
+          keep_reports: 20
+          gh_pages: gh-pages
+      
+      - name: Create History Directory
+        run: |
+          mkdir -p gh-pages/last-history
+          mkdir -p allure-history
 
       - name: Deploy Allure Report
         if: always()
