@@ -28,3 +28,5 @@ else
   echo "All tests passed successfully."
   exit 0
 fi
+
+exit EXIT_CODE
