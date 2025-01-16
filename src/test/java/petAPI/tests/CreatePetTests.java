@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @Epic("Pet API")
-@Feature("Tests for pet creation")
+@Feature("POST. Tests for pet creation")
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreatePetTests {

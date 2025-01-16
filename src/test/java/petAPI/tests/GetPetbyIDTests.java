@@ -1,0 +1,72 @@
+package petAPI.tests;
+
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.restassured.AllureRestAssured;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+import petAPI.models.Pet;
+import petAPI.utils.EndPoints;
+import petAPI.utils.TestDataProvider;
+
+import java.util.ArrayList;
+
+import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+@Epic("Pet API")
+@Feature("GET. Tests GET pet by ID")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+
+public class GetPetbyIDTests {
+
+    @BeforeAll
+    public void setUp() {
+        RestAssured.filters(new AllureRestAssured());
+    }
+
+    @Test
+    @DisplayName("1. Positive. Get existing Pet returns 200")
+    public void get_existing_returns200()
+    {
+        Pet referencePet = TestDataProvider.createReferencePet();
+        postPet(referencePet);
+
+        Pet response = given()
+                .when()
+                .get(EndPoints.PET+referencePet.id)
+                .then()
+                .statusCode(200)
+                .extract().as(Pet.class);
+        assertEquals(referencePet.toJson(), response.toJson());
+    }
+
+    @Test
+    @DisplayName("2. Negative. Get not existing Pet returns 404")
+    public void get_notExisting_returns404()
+    {
+        int notExistingId = 101;
+
+        given()
+                .when()
+                .get(EndPoints.PET + notExistingId)
+                .then()
+                .statusCode(404);
+    }
+
+    private void postPet(Pet pet) {
+        Pet response = given()
+                .contentType(ContentType.JSON)
+                .body(pet)
+                .when()
+                .post(EndPoints.PET)
+                .then()
+                .statusCode(200)
+                .extract().as(Pet.class);
+    }
+}
