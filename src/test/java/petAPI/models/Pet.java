@@ -13,7 +13,7 @@ public class Pet {
     public ArrayList<String> photoUrls;
     public OrderStatus status;
 
-    public Pet() {}
+    public Pet(int i, String s, Category categoryName, ArrayList<Tag> tags) {}
 
     public Pet(Integer id, String name, Category category, ArrayList<Tag> tags, ArrayList<String> photoUrls, OrderStatus status) {
         this.id = id;
@@ -24,12 +24,15 @@ public class Pet {
         this.status = status;
     }
 
+    public Pet() {
+    }
+
     public String toJson() {
         Gson gson = new GsonBuilder().create();
         return gson.toJson(this);
     }
 
     public String toString() {
-        return String.format("id: %d name: %s", id, name);
+        return String.format("id: %d, name: %s", id, name);
     }
 }
