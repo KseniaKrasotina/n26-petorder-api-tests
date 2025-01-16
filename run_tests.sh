@@ -17,3 +17,14 @@ docker run  --name $CONTAINER_NAME -d -p 8080:8080 swaggerapi/petstore3:unstable
 
 # Run the tests using Maven:
 mvn clean test
+
+# Capture the exit code to reflect on a job run
+EXIT_CODE=$?
+
+if [ $EXIT_CODE -ne 0 ]; then
+  echo "Tests failed. Exiting with status $EXIT_CODE."
+  exit $EXIT_CODE
+else
+  echo "All tests passed successfully."
+  exit 0
+fi
