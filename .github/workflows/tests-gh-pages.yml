@@ -1,5 +1,5 @@
-name: N26 Workflow for API tests
-run-name: ${{ github.actor }} is creating Allure report 🚀
+name: N26 Workflow for API tests GH Pages
+run-name: Generating Allure report 
 
 on: workflow_dispatch
 
@@ -45,12 +45,12 @@ jobs:
         run: ./run_tests.sh
 
       - name: Install Allure CommandLine
+        if: always()
         run: |
           curl -o allure-2.22.1.tgz -OLs https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.22.1/allure-commandline-2.22.1.tgz
           sudo tar -zxvf allure-2.22.1.tgz -C /opt/
           sudo ln -s /opt/allure-2.22.1/bin/allure /usr/bin/allure
           allure --version
-        if: always()
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@v1.11
