@@ -70,6 +70,7 @@ jobs:
           force_orphan: true
 
       - name: Get Allure Report URL
+        if: always()
         run: |
           echo "ALLURE_REPORT_URL=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
 
