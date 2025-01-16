@@ -64,9 +64,9 @@ jobs:
       
       - name: Create History Directory
         run: |
-          mkdir -p gh-pages/last-history
-          mkdir -p allure-history
-
+          mkdir -p $GITHUB_WORKSPACE/gh-pages/last-history
+          chmod -R 755 $GITHUB_WORKSPACE/gh-pages
+          
       - name: Deploy Allure Report
         if: always()
         uses: peaceiris/actions-gh-pages@v3
