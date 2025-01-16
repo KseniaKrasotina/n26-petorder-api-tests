@@ -13,7 +13,7 @@ fi
 
 # Pull and Run the API in Docker:
 docker pull swaggerapi/petstore3:unstable
-docker run  --name CONTAINER_NAME -d -p 8080:8080 swaggerapi/petstore3:unstable
+docker run  --name $CONTAINER_NAME -d -p 8080:8080 swaggerapi/petstore3:unstable
 
 # Run the tests using Maven:
 mvn clean test
