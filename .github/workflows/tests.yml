@@ -1,4 +1,4 @@
-name: Allure Report
+name: N26 Workflow for API tests
 run-name: ${{ github.actor }} is creating Allure report 🚀
 
 on: workflow_dispatch
