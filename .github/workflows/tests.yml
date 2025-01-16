@@ -18,8 +18,11 @@ jobs:
           cache: 'maven'
           distribution: 'zulu'
 
+      - name: Set execute permissions for run.sh
+        run: chmod +x run_tests.sh
+
       - name: Run Test
-        run: ./mvnw verify
+        run: ./run_tests.sh
         continue-on-error: true
 
       - name: Setup Allure History
