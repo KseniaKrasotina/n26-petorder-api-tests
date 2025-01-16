@@ -1,0 +1,82 @@
+name: N26 Workflow for API tests GH Pages
+run-name: Generating Allure report 
+
+on: workflow_dispatch
+
+permissions:
+  contents: write
+
+jobs:
+  autotests:
+    name: Run tests and generate Allure Report
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4.5.0
+        with:
+          java-version: 21
+          cache: 'maven'
+          distribution: 'zulu'
+
+      - name: Configure Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Create gh-pages branch if not exists
+        run: |
+          if ! git ls-remote --exit-code --heads origin gh-pages; then
+            git checkout --orphan gh-pages
+            git reset --hard
+            git commit --allow-empty -m "Initial gh-pages commit"
+            git push origin gh-pages
+            git checkout -
+          fi
+
+      - name: Set execute permissions for run_tests.sh
+        run: chmod +x run_tests.sh
+
+      - name: Run Test
+        run: ./run_tests.sh
+        continue-on-error: true
+
+      - name: Install Allure CommandLine
+        run: |
+          curl -o allure-2.22.1.tgz -OLs https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.22.1/allure-commandline-2.22.1.tgz
+          sudo tar -zxvf allure-2.22.1.tgz -C /opt/
+          sudo ln -s /opt/allure-2.22.1/bin/allure /usr/bin/allure
+          allure --version
+
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@v1.11
+        if: always()
+        with:
+          allure_results: target/allure-results
+          allure_report: allure-report
+          keep_reports: 20
+          gh_pages: gh-pages
+          
+      - name: Deploy Allure Report
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: allure-report
+          force_orphan: true
+
+      - name: Get Allure Report URL
+        run: |
+          echo "ALLURE_REPORT_URL=https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}" >> $GITHUB_ENV
+
+      - name: Upload Allure Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results
+          path: target/allure-results
+          retention-days: 30
