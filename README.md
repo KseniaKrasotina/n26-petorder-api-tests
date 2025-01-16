@@ -50,12 +50,12 @@ To view the Allure report, it should be generated first. For this, please do the
 ## How to Run Tests via GitHub Actions
 1. **Run tests via GitHub Actions:**
    You can execute tests using the `workflow_dispatch` event on CI/CD pipeline. To do this, please:
-   - Follow the link to open a Workflow: [N26 Workflow for API tests](https://github.com/KseniaKrasotina/n26-petorder-api-tests/actions/workflows/tests.yml).
+   - Follow the link to open a Workflow: [N26 Workflow for API tests](https://github.com/KseniaKrasotina/n26-petorder-api-tests/actions/workflows/tests-gh-pages.yml).
    - Navigate to `Run workflow` button and click
    - Click green `Run workflow` in the appeared popup
 
-
-2. **Download Allure results:**
+2. **Open Allure results in GitHub Pages:** [Online Allure Report](https://kseniakrasotina.github.io/n26-petorder-api-tests/).
+3. **Download Allure results:**
    After test execution, the `allure-results` directory will be available as an artifact. Download it and use the local Allure installation to view the report:
    ```bash
    allure serve <path-to-downloaded-allure-results>
@@ -95,5 +95,8 @@ The solution was designed to:
     - Automates test execution in CI/CD pipelines.
     - Allows manual triggering of workflows via `workflow_dispatch` and uploads `allure-results` as Artifacts which then can be downloaded for analysis
 
-6. **Custom Shell Script (`run_tests.sh`):**
+6. **GitHub Pages:**
+   - Used for hosting Allure Report
+
+7. **Custom Shell Script (`run_tests.sh`):**
     - Simplifies the local testing process by automating Swagger API deployment and test execution.
