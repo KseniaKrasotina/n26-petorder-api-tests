@@ -6,17 +6,13 @@ import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.*;
-import petAPI.models.Category;
-import petAPI.models.OrderStatus;
 import petAPI.models.Pet;
-import petAPI.models.Tag;
 import petAPI.utils.EndPoints;
 import petAPI.utils.TestDataProvider;
 
 import java.util.ArrayList;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Feature("PUT. Tests for updating existing Pet")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
-public class UpdateExistingPet {
+public class UpdatePetTests {
     @BeforeAll
     public void setUp() {
         RestAssured.filters(new AllureRestAssured());
