@@ -3,6 +3,9 @@ run-name: ${{ github.actor }} is creating Allure report 🚀
 
 on: workflow_dispatch
 
+permissions:
+  contents: write
+
 jobs:
   autotests:
     name: Run tests and generate Allure Report
@@ -10,6 +13,8 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
 
       - name: Set up Java 21
         uses: actions/setup-java@v4.5.0
@@ -18,20 +23,27 @@ jobs:
           cache: 'maven'
           distribution: 'zulu'
 
-      - name: Set execute permissions for run.sh
+      - name: Configure Git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+
+      - name: Create gh-pages branch if not exists
+        run: |
+          if ! git ls-remote --exit-code --heads origin gh-pages; then
+            git checkout --orphan gh-pages
+            git reset --hard
+            git commit --allow-empty -m "Initial gh-pages commit"
+            git push origin gh-pages
+            git checkout -
+          fi
+
+      - name: Set execute permissions for run_tests.sh
         run: chmod +x run_tests.sh
 
       - name: Run Test
         run: ./run_tests.sh
         continue-on-error: true
-
-      - name: Setup Allure History
-        uses: actions/checkout@v4.2.2
-        if: always()
-        continue-on-error: true
-        with:
-          ref: gh-pages
-          path: gh-pages
 
       - name: Generate Allure Report
         uses: simple-elf/allure-report-action@v1.11
@@ -40,10 +52,10 @@ jobs:
           allure_results: target/allure-results
           allure_history: allure-history
 
-      - name: Publish Allure Report
+      - name: Deploy Allure Report
         if: always()
-        uses: peaceiris/actions-gh-pages@v4.0.0
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
           publish_dir: allure-history
+          force_orphan: true
