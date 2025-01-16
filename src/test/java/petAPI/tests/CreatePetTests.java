@@ -57,8 +57,8 @@ public class CreatePetTests {
                         }},
                         OrderStatus.sold),
                 new Pet(2,
-                        "Mewo",
-                        new Category(1, "category name"),
+                        null,
+                        new Category(1, "null pet category"),
                         new ArrayList<>() {{
                             add(new Tag(1, "black"));
                             add(new Tag(2, "angry"));
@@ -79,14 +79,26 @@ public class CreatePetTests {
                             add("https://photo_horse1.com");
                             add("http://photo_horse2.com");
                         }},
-                        OrderStatus.pending)
+                        OrderStatus.pending),
+                new Pet(2,
+                        "",
+                        new Category(1, "noname pet category"),
+                        new ArrayList<>() {{
+                            add(new Tag(1, "black"));
+                            add(new Tag(2, "angry"));
+                        }},
+                        new ArrayList<>() {{
+                            add("https://photo_cat1.com");
+                            add("http://photo_cat2.com");
+                        }},
+                        OrderStatus.available)
         );
     }
 
     private static Stream<Pet> getInvalidPets() {
         return Stream.of(
                 new Pet(0,
-                        "Rex",
+                        "0 ID name",
                         new Category(1, "category name"),
                         new ArrayList<>() {{
                             add(new Tag(1, "white"));
@@ -97,21 +109,21 @@ public class CreatePetTests {
                             add("http://photo_dog2.com");
                         }},
                         OrderStatus.sold),
-                new Pet(2,
-                        "",
-                        new Category(1, "category name"),
-                        new ArrayList<>() {{
-                            add(new Tag(1, "black"));
-                            add(new Tag(2, "angry"));
-                        }},
-                        new ArrayList<>() {{
-                            add("https://photo_cat1.com");
-                            add("http://photo_cat2.com");
-                        }},
-                        OrderStatus.available),
                 new Pet(null,
-                        "Funny",
+                        "Null ID name",
                         new Category(1, "category name"),
+                        new ArrayList<>() {{
+                            add(new Tag(1, "blue"));
+                            add(new Tag(2, "hungry"));
+                        }},
+                        new ArrayList<>() {{
+                            add("1");
+                            add("http://photo_horse2.com");
+                        }},
+                        OrderStatus.pending),
+                new Pet(-1,
+                        "Negative ID name",
+                        new Category(1, "negative id category"),
                         new ArrayList<>() {{
                             add(new Tag(1, "blue"));
                             add(new Tag(2, "hungry"));
@@ -131,13 +143,36 @@ public class CreatePetTests {
                 .contentType(ContentType.JSON)
                 .body(pet)
                 .when()
-                .post(EndPoints.pet)
+                .post(EndPoints.PET)
                 .then()
                 .statusCode(200)
                 .body(matchesJsonSchemaInClasspath("pet-schema.json"))
                 .extract().as(Pet.class);
 
         assertEquals(pet.toJson(), response.toJson());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"testData/valid-pet-all-fields.json"})
+    public void postPet_validPet_valid200(String fileName) throws IOException {
+        var requestBody = getJsonFromFile(fileName);
+
+            Response response = given()
+                    .contentType(ContentType.JSON)
+                    .body(requestBody)
+                    .when()
+                    .post(EndPoints.PET)
+                    .then()
+                    .statusCode(200)
+                    .contentType(ContentType.JSON)
+                    .extract().response();
+
+            String responseBody = response.getBody().asString();
+
+            String minifiedRequestBody = minifyJson(requestBody);
+            String minifiedResponseBody = minifyJson(responseBody);
+
+            assertEquals(minifiedRequestBody, minifiedResponseBody);
     }
 
     @ParameterizedTest(name = "{index}. Negative tests. {0}")
@@ -147,7 +182,7 @@ public class CreatePetTests {
                 .contentType(ContentType.JSON)
                 .body(pet)
                 .when()
-                .post(EndPoints.pet)
+                .post(EndPoints.PET)
                 .then()
                 .statusCode(400)
                 .body(matchesJsonSchemaInClasspath("pet-schema.json"))
@@ -156,4 +191,18 @@ public class CreatePetTests {
         assertEquals(pet.toJson(), response.toJson());
     }
 
+    private String getJsonFromFile(String fileName) throws IOException {
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName)) {
+            if (inputStream == null) {
+                throw new IOException("Resource file not found: " + fileName);
+            }
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
+        }
+    }
+
+    private String minifyJson(String json) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(json);
+        return jsonNode.toString();
+    }
 }
