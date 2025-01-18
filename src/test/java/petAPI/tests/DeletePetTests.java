@@ -44,13 +44,27 @@ public class DeletePetTests {
 
     @Test
     @DisplayName("1. Negative. Delete not existing  Pet returns 400")
-    public void delete_notExisting_returns400()
+    public void delete_notExisting_returns404()
     {
         int notExistingId = 101;
 
         given()
                 .when()
                 .delete(EndPoints.PET+notExistingId)
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
+    @DisplayName("1. Negative. Delete the Pet with invalid id returns 400")
+    public void delete_withInvalidId_returns400()
+    {
+        String invalidId = "a";
+        System.out.println(EndPoints.PET+invalidId);
+
+        given()
+                .when()
+                .delete(EndPoints.PET+invalidId)
                 .then()
                 .statusCode(400);
     }

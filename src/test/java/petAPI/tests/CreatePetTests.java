@@ -15,7 +15,6 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 import petAPI.models.Category;
 import petAPI.models.OrderStatus;
 import petAPI.models.Pet;
@@ -148,7 +147,7 @@ public class CreatePetTests {
                 .post(EndPoints.PET)
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("pet-schema.json"))
+                .body(matchesJsonSchemaInClasspath("api-specs/schemas/pet-schema.json"))
                 .extract().as(Pet.class);
 
         assertEquals(pet.toJson(), response.toJson());
@@ -195,7 +194,7 @@ public class CreatePetTests {
                 .post(EndPoints.PET)
                 .then()
                 .statusCode(400)
-                .body(matchesJsonSchemaInClasspath("pet-schema.json"))
+                .body(matchesJsonSchemaInClasspath("api-specs/schemas/pet-schema.json"))
                 .extract().as(Pet.class);
 
         assertEquals(pet.toJson(), response.toJson());
