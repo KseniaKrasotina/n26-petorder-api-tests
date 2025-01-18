@@ -20,7 +20,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Pet API")
-@Feature("GET. Tests GET pet by ID")
+@Feature("GET. Get pet by ID")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
 public class GetPetbyIDTests {

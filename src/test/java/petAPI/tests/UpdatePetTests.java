@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Pet API")
-@Feature("PUT. Tests for updating existing Pet")
+@Feature("PUT. Update existing Pet")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
 public class UpdatePetTests {

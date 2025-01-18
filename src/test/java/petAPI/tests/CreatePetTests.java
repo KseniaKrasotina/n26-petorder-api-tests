@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 @Epic("Pet API")
-@Feature("POST. Tests for pet creation")
+@Feature("POST. Create new pet")
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreatePetTests {
@@ -137,7 +137,8 @@ public class CreatePetTests {
         );
     }
 
-    @ParameterizedTest(name = "{index}. Positive tests. {0}")
+    @DisplayName("Positive. Create pet with valid data")
+    @ParameterizedTest(name = "{index}. {displayName}: {0}")
     @MethodSource("getValidPets")
     public void postPet_validPet_success200(Pet pet) {
         Pet response = given()
@@ -153,7 +154,7 @@ public class CreatePetTests {
         assertEquals(pet.toJson(), response.toJson());
     }
 
-    @DisplayName("Invalid Pet Data Tests")
+    @DisplayName("Negative. Create pet with invalid data using json approach")
     @ParameterizedTest(name = "{index}. {displayName}. {1}")
     @CsvSource({
             "testData/post_pet_invalid_nulliD.json, Pet with null ID",
@@ -183,7 +184,8 @@ public class CreatePetTests {
             assertEquals(minifiedRequestBody, minifiedResponseBody);
     }
 
-    @ParameterizedTest(name = "{index}. Negative tests. {0}")
+    @DisplayName("Negative. Create pet with invalid data using object approach")
+    @ParameterizedTest(name = "{index}. {displayName}: {0}")
     @MethodSource("getInvalidPets")
     public void postPet_invalidPet_400(Pet pet) {
         Pet response = given()

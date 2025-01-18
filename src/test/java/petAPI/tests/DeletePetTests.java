@@ -15,7 +15,7 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Pet API")
-@Feature("DELETE. Tests for pet deletion")
+@Feature("DELETE. Delete pet")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
 public class DeletePetTests {

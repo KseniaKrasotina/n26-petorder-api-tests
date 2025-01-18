@@ -1,5 +1,5 @@
 name: N26 Workflow for API tests GH Pages
-run-name: Generating Allure report 
+run-name: Run tests and generate Allure Report
 
 on: workflow_dispatch
 
