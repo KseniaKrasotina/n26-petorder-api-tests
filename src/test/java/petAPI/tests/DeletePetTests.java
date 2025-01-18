@@ -8,11 +8,8 @@ import org.junit.jupiter.api.*;
 import petAPI.models.Pet;
 import petAPI.utils.EndPoints;
 import petAPI.utils.TestDataProvider;
-
 import java.util.ArrayList;
-
 import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Epic("Pet API")
 @Feature("DELETE. Delete pet")

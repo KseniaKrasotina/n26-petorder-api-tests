@@ -156,8 +156,8 @@ public class CreatePetTests {
     @DisplayName("Negative. Create pet with invalid data using json approach")
     @ParameterizedTest(name = "{index}. {displayName}. {1}")
     @CsvSource({
-            "testData/post_pet_invalid_nulliD.json, Pet with null ID",
-            "testData/post_pet_invalid_noID.json, Pet with missing ID",
+            "testData/post_pet_invalid_nullId.json, Pet with null ID",
+            "testData/post_pet_invalid_noId.json, Pet with missing ID",
             "testData/post_pet_invalid_status.json, Pet with invalid status",
             "testData/post_pet_invalid_idType.json, Pet with incorrect ID type",
             "testData/post_pet_invalid_noRequiredName.json, Pet with missing required name"
