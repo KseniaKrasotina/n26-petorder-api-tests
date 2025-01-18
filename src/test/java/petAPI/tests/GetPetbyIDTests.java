@@ -31,7 +31,7 @@ public class GetPetbyIDTests {
     }
 
     @Test
-    @DisplayName("1. Positive. Get existing Pet returns 200")
+    @DisplayName("1. Positive. Get Existing Pet: Returns 200 and Verifies Response Structure")
     public void get_existing_returns200()
     {
         Pet referencePet = TestDataProvider.createReferencePet();
@@ -47,7 +47,7 @@ public class GetPetbyIDTests {
     }
 
     @Test
-    @DisplayName("2. Negative. Get not existing Pet returns 404")
+    @DisplayName("2. Negative. Get not existing Pet: Returns 404")
     public void get_notExisting_returns404()
     {
         int notExistingId = 101;

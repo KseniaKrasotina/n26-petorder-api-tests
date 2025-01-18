@@ -136,7 +136,7 @@ public class CreatePetTests {
         );
     }
 
-    @DisplayName("Positive. Create pet with valid data")
+    @DisplayName("POST. Positive. Create pet with valid data")
     @ParameterizedTest(name = "{index}. {displayName}: {0}")
     @MethodSource("getValidPets")
     public void postPet_validPet_success200(Pet pet) {
@@ -153,7 +153,7 @@ public class CreatePetTests {
         assertEquals(pet.toJson(), response.toJson());
     }
 
-    @DisplayName("Negative. Create pet with invalid data using json approach")
+    @DisplayName("POST. Negative. Create pet with invalid data using json approach")
     @ParameterizedTest(name = "{index}. {displayName}. {1}")
     @CsvSource({
             "testData/post_pet_invalid_nulliD.json, Pet with null ID",
@@ -183,7 +183,7 @@ public class CreatePetTests {
             assertEquals(minifiedRequestBody, minifiedResponseBody);
     }
 
-    @DisplayName("Negative. Create pet with invalid data using object approach")
+    @DisplayName("POST. Negative. Create pet with invalid data using object approach")
     @ParameterizedTest(name = "{index}. {displayName}: {0}")
     @MethodSource("getInvalidPets")
     public void postPet_invalidPet_400(Pet pet) {
