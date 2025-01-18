@@ -31,7 +31,7 @@ public class UpdatePetTests {
     }
 
     @Test
-    @DisplayName("1. PUT. Positive. Update existing Pet Name returns 201")
+    @DisplayName("1. Positive. Update existing Pet Name returns 201")
     public void put_update_petName_200()
     {
         Pet referencePet = TestDataProvider.createReferencePet();
@@ -52,7 +52,7 @@ public class UpdatePetTests {
     }
 
     @Test
-    @DisplayName("1. PUT. Negative. Update not existing Pet returns 404")
+    @DisplayName("1. Negative. Update not existing Pet returns 404")
 
     public void put_update_notExistingPet_404()
     {
