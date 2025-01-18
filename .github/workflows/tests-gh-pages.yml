@@ -36,12 +36,7 @@ jobs:
             git commit --allow-empty -m "Initial gh-pages commit"
             git push origin gh-pages
             git checkout -
-          fi
-
-      - name: Clean up gh-pages branch
-        run: |
-          git rm -rf . 
-          git commit -m "Clean up gh-pages before deployment" || echo "No changes to commit"    
+          fi 
 
       - name: Set execute permissions for run_tests.sh
         run: chmod +x run_tests.sh
