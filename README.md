@@ -100,3 +100,6 @@ The solution was designed to:
 
 7. **Custom Shell Script (`run_tests.sh`):**
     - Simplifies the local testing process by automating Swagger API deployment and test execution
+
+## Report Screenshot
+[![Report Screenshot](./assets/allure_report_screenshot.png)](https://kseniakrasotina.github.io/n26-petorder-api-tests/#suites/07679c762d60c9ee7477ad5ac6d91c9c/c60aa8bcf786356c/)
