@@ -39,18 +39,18 @@ public class GetPetbyIDTests {
         assertEquals(referencePet.toJson(), response.toJson());
     }
 
-//    @Test
-//    @DisplayName("2. Negative. Get not existing Pet: Returns 404")
-//    public void get_notExisting_returns404()
-//    {
-//        int notExistingId = 101;
-//
-//        given()
-//                .when()
-//                .get(EndPoints.PET + notExistingId)
-//                .then()
-//                .statusCode(404);
-//    }
+    @Test
+    @DisplayName("2. Negative. Get not existing Pet: Returns 404")
+    public void get_notExisting_returns404()
+    {
+        int notExistingId = 101;
+
+        given()
+                .when()
+                .get(EndPoints.PET + notExistingId)
+                .then()
+                .statusCode(404);
+    }
 
     private void postPet(Pet pet) {
         Pet response = given()
