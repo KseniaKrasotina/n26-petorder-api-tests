@@ -34,8 +34,8 @@ The project includes a suite of automated API tests. To run the tests:
    ./run_tests.sh
    ```
    This script will:
-    - Deploy the Swagger API.
-    - Execute the API tests.
+    - Deploy the Swagger API
+    - Execute the API tests
 
 
 2. **Generate Allure report:**
@@ -50,7 +50,7 @@ To view the Allure report, it should be generated first. For this, please do the
 ## How to Run Tests via GitHub Actions
 1. **Run tests via GitHub Actions:**
    You can execute tests using the `workflow_dispatch` event on CI/CD pipeline. To do this, please:
-   - Follow the link to open a Workflow: [N26 Workflow for API tests](https://github.com/KseniaKrasotina/n26-petorder-api-tests/actions/workflows/tests-gh-pages.yml).
+   - Follow the link to open a Workflow: [N26 Workflow for API tests](https://github.com/KseniaKrasotina/n26-petorder-api-tests/actions/workflows/tests-gh-pages.yml)
    - Navigate to `Run workflow` button and click
    - Click green `Run workflow` in the appeared popup
 
@@ -70,9 +70,9 @@ The solution was designed to:
 1. **Ensure API Reliability:** The tests validate API endpoints by covering different scenarios, including positive, negative, and edge cases.
 2. **Simplify Payload Validation:** Positive test cases use mostly the Page Object Model (POM) pattern. For this I use Gson for serialization and deserialization. This approach allows for easier validation of the entire payload and reduces boilerplate code.
 3. **Efficient Negative Testing:** For most negative scenarios, invalid payloads are stored as JSON files in the `resources/testData` directory. This method:
-    - Speeds up the process of adding invalid data.
+    - Speeds up the process of adding invalid data
     - It helps to make testing with various invalid field types
-    - Helps to avoid the need to create multiple constructors for invalid data structures.
+    - Helps to avoid the need to create multiple constructors for invalid data structures
 4. **Provide Clear Reporting:** Allure Reporting is configured to present detailed and interactive reports for analysis.
 5. **Integrate Seamlessly with CI/CD:** Tests are integrated into GitHub Actions for automated execution, ensuring consistent quality checks on each commit or manual trigger.
 
@@ -80,23 +80,23 @@ The solution was designed to:
 
 1. **Java and JUnit:**
     - Java is a widely-used language for API testing I have experience with. I've completed JetBrains & Google courses with Kotlin also, but this time chose Java 
-    - JUnit offers powerful testing features and annotations for structuring test cases.
+    - JUnit offers powerful testing features and annotations for structuring test cases
 
 2. **RestAssured:**
     - An open-source framework for testing and validating REST APIs in Java
 
 3. **Maven:**
-    - Used for dependency management and build automation. 
+    - Used for dependency management and build automation
 
 4. **Allure Reporting:**
     - Provides detailed test reports with interactive features, which not fully configured in this project. But tool is really impressive
 
 5. **GitHub Actions:**
-    - Automates test execution in CI/CD pipelines.
+    - Automates test execution in CI/CD pipelines
     - Allows manual triggering of workflows via `workflow_dispatch` and uploads `allure-results` as Artifacts which then can be downloaded for analysis
 
 6. **GitHub Pages:**
    - Used for hosting Allure Report
 
 7. **Custom Shell Script (`run_tests.sh`):**
-    - Simplifies the local testing process by automating Swagger API deployment and test execution.
+    - Simplifies the local testing process by automating Swagger API deployment and test execution
