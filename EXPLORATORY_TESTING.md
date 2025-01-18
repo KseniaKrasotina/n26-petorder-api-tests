@@ -65,7 +65,7 @@ Each charter defines a goal for an exploratory testing session.
 **With:** Intentionally triggering error conditions, tools such as Charles, Android Studio  
 **To discover:** Unclear error messages, improper error handling, or system crashes  
 **Findings:** 
-- Tiny issue found: works fine when pass too long int as an Income/Expence value, thought there is no any warning when user exeeds the input limitation
+- Tiny issue found: works fine when pass too long int as an Income/Expence value, thought there is no any warning when value exeeds the input limitation
 - Works as expected when pass 0 as an income/expence value and try to add an empty transaction
 
 **Reason for priority:** Proper error handling is important for user trust and providing clear guidance when issues occur. In the case of non-informative error handling, errors could lead to user confusion and financial mistakes.
@@ -92,6 +92,7 @@ Each charter defines a goal for an exploratory testing session.
 
 **Findings:**
 - Unexpected resorting of categories happens when adding a new transaction
+- Category can be deleted with no errors from the Main Screen
 - Subscription is needed to explore the whole functionality
 
 **Reason for priority:** Proper categorization is important for accurate financial analysis, but issues here are less critical than those in core transactions or security.
@@ -103,8 +104,7 @@ Each charter defines a goal for an exploratory testing session.
 
 **Findings:**
 - Unexpected resorting of categories happens when adding a new transaction
-- Calendar works as wxpected
-- Dates can be swiped as expected on a Main Screen
+- Selected calendar dates are displayed correctly on a main screen can be swiped
 - Bug found: When set an interval of Dates in a Calendar from 1 Jan to 5 Feb and swipe the Main Screen between dates fast - app craches on Google Pixel 9 Pro with the "Invalid item positin 9" error. Screenshot
 
 **Reason for priority:** A clear and accurate visual experience of financial data is key for users to understand their financial situation, though not as critical as security.
