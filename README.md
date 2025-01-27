@@ -48,6 +48,7 @@ To view the Allure report, it should be generated first. For this, please do the
 
 
 ## How to Run Tests via GitHub Actions
+The tests are executed on each push of the `master` branch automatically. To run them on demand:
 1. **Run tests via GitHub Actions:**
    You can execute tests using the `workflow_dispatch` event on CI/CD pipeline. To do this, please:
    - Follow the link to open a Workflow: [N26 Workflow for API tests](https://github.com/KseniaKrasotina/n26-petorder-api-tests/actions/workflows/tests-gh-pages.yml)
@@ -68,11 +69,8 @@ To view the Allure report, it should be generated first. For this, please do the
 The solution was designed to:
 
 1. **Ensure API Reliability:** The tests validate API endpoints by covering different scenarios, including positive, negative, and edge cases.
-2. **Simplify Payload Validation:** Positive test cases use mostly the Page Object Model (POM) pattern. For this I use Gson for serialization and deserialization. This approach allows for easier validation of the entire payload and reduces boilerplate code.
-3. **Efficient Negative Testing:** For most negative scenarios, invalid payloads are stored as JSON files in the `resources/testData` directory. This method:
-    - Speeds up the process of adding invalid data
-    - It helps to make testing with various invalid field types
-    - Helps to avoid the need to create multiple constructors for invalid data structures
+2. **Simplify Payload Validation:** Positive test cases use mostly an approach with Java objects. This approach allows easier validation of the payload fields and reduces boilerplate code.
+3. **Efficient Negative Testing:** For most of negative scenarios, invalid payloads are stored as JSON files in the `resources/testData` directory. This approach speeds up the process of adding invalid payloads because there is no need to create multiple classes for invalid payloads, e.g. invalid field types, invalid field names, etc.
 4. **Provide Clear Reporting:** Allure Reporting is configured to present detailed and interactive reports for analysis.
 5. **Integrate Seamlessly with CI/CD:** Tests are integrated into GitHub Actions for automated execution, ensuring consistent quality checks on each commit or manual trigger.
 
