@@ -1,0 +1,5 @@
+"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
+"0","Pet API","8","POST. Create new pet","4","0","","0"
+"0","Pet API","1","DELETE. Delete pet","2","0","","0"
+"0","Pet API","0","PUT. Update existing Pet","2","0","","0"
+"0","Pet API","0","GET. Get pet by ID","2","0","","0"
